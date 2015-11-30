@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<title>Color Contrast Analyzer</title>
+
+<link rel="stylesheet" href="css/normalize.css"/>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<link rel="stylesheet" href="css/spectrum.css"/>
+<link rel="stylesheet" href="css/styles.css"/>
+
+</head>
+
+<body>  
+    <script type=”text/javascript”>window.module = undefined</script> 
+    <section class="debug">
+        <button id="btn_reload">Reload</button>
+    </section>
+
+    <header>
+        <h1 id="logo">ustwo</h1>
+        <p>Contrast Checker</p>
+    </header>
+    <section id="measurement">
+        <div id="accessibility-level">
+            <ul id="accessibility-levels">
+                <li id="aa-small">
+                    <div><span id="aa-small-result" class="result"></span></div>
+                    <p>AA Small</p>
+                </li>
+                <li id="aa-large">
+                    <div><span id="aa-large-result" class="result"></span></div>
+                    <p>AA Large</p>
+                </li>
+                <li id="aaa-small">
+                    <div><span id="aaa-small-result" class="result"></span></div>
+                    <p>AAA Small</p>
+                </li>
+                <li id="aaa-large">
+                    <div><span id="aaa-large-result" class="result"></span></div>
+                    <p>AAA Large</p>
+                </li>
+            </ul>
+            <p id="a-value"><span id="contrast-value">5.6</span> : 1</p>
+            <div id="slider"></div>
+        </div>
+    </section>
+    <section id="main-content">
+        <div class="triangle"></div>    
+        <ul id="colors">
+            <li id="foreground-color" class="left">
+                <div id="fg-label" class="label-selector" for="fg-selector">#FFFFFF</div>
+                <div id="fg-selector" class="selector picker"></div> 
+            </li>
+            <li id="background-color" class="right">
+                <div id="bg-label" class="label-selector" for="bg-selector">#000000</div>
+                <div id="bg-selector" class="selector picker"></div> 
+            </li>
+        </ul>
+    </section>    
+    <footer>
+        <span class="right">WCAG2.0 <img src="img/info.png" /></span>
+    </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="js/libs/jquery-ui.js"></script>
+    <script src="js/libs/spectrum.js"></script>
+    <script src="js/color-contrast.js"></script>
+</body>
+</html>
