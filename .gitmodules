@@ -1,0 +1,3 @@
+[submodule "TinyColor"]
+	path = TinyColor
+	url = https://github.com/bgrins/TinyColor
