@@ -45,7 +45,6 @@
 							<Height>550</Height>
 							<Width>378</Width>
 						</MaxSize>p
-						
 					</Geometry>
 					<Icons>
 						<Icon Type="Normal">./icons/iconNormal.png</Icon>

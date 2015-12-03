@@ -5,7 +5,6 @@ jQuery("#btn_reload").click( function () {
 var tinycolor = require("tinycolor2");
 
 var colorContrast = (function() {
-
 	var colors = {
 			fg: "",
 			bg: ""
@@ -15,7 +14,7 @@ var colorContrast = (function() {
 			AAlarge : false,
 			AAAsmall : false,
 			AAAlarge : false,
-			readability : 0	
+			readability : 0
 		},
 		$slider = jQuery("#slider").slider({
 			max: 21,
@@ -45,21 +44,20 @@ var colorContrast = (function() {
 
 	return {
 		init: function() {
-			
 			var that = this;
 
 			this.getColors();
 			this.checkColors();
-			this.updateColors();		
+			this.updateColors();
 
 			jQuery("#fg-selector").spectrum({
 				color: colors.fg
 			});
-			jQuery("#fg-selector").on('move.spectrum', function(e, color) { 
 
+			jQuery("#fg-selector").on("move.spectrum", function(e, color) {
 				colors.fg = tinycolor(jQuery(selectors.labels.fg).html());
 
-    			jQuery(selectors.fg).css({ backgroundColor: color.toHexString() });
+				jQuery(selectors.fg).css({ backgroundColor: color.toHexString() });
 				jQuery(selectors.labels.fg).html(color.toHexString());
 
 				that.checkColors();
@@ -67,34 +65,36 @@ var colorContrast = (function() {
 
 			jQuery("#bg-selector").spectrum({
 				color: colors.bg
-			});			
+			});
 
-			jQuery("#bg-selector").on('move.spectrum', function( e, color) {
-
+			jQuery("#bg-selector").on("move.spectrum", function( e, color) {
 				colors.bg = tinycolor(jQuery(selectors.labels.bg).html());
 
-    			jQuery(selectors.bg).css({ backgroundColor: color.toHexString() });
-				jQuery(selectors.labels.bg).html(color.toHexString());				
+				jQuery(selectors.bg).css({ backgroundColor: color.toHexString() });
+				jQuery(selectors.labels.bg).html(color.toHexString());
 
-				that.checkColors();				
+				that.checkColors();
 			});
-			
 		},
+
 		getColors: function() {
 			colors.fg = tinycolor(jQuery(selectors.labels.fg).html());
 			colors.bg = tinycolor(jQuery(selectors.labels.bg).html());
 		},
+
 		updateColors: function() {
 
 			jQuery(selectors.fg).css({ backgroundColor: colors.fg.toHexString() });
 			jQuery(selectors.labels.fg).html(colors.fg.toHexString());
-			
+
 			jQuery(selectors.bg).css({ backgroundColor: colors.bg.toHexString() });
 			jQuery(selectors.labels.bg).html(colors.bg.toHexString());
 		},
+
 		areColorsValid: function() {
 			return (colors.fg.isValid()) && (colors.bg.isValid());
 		},
+
 		checkColors: function() {
 			if (this.areColorsValid()) {
 				values.AAsmall = tinycolor.isReadable(colors.fg, colors.bg, {level: "AA", size:"small"});
@@ -108,26 +108,26 @@ var colorContrast = (function() {
 
 			this.updateValues(values.readability);
 		},
+
 		areNotAccessible: function() {
 			return (!values.AAsmall && !values.AAlarge && !values.AAAsmall && !values.AAAlarge);
 		},
+
 		removeAndAddClass: function(classToApply) {
 			jQuery(selectors.sliderHandle).removeClass(selectors.classes.success);
 			jQuery(selectors.sliderHandle).removeClass(selectors.classes.failed);
-			jQuery(selectors.sliderHandle).addClass(classToApply);			
+			jQuery(selectors.sliderHandle).addClass(classToApply);
 		},
-		updateValues: function(num) {
 
+		updateValues: function(num) {
 			if (num !== undefined && $slider !== undefined) {
 				$slider.slider("value", num);
 				jQuery(selectors.value).html(num.toFixed(2));
 			}
-			
-			if (this.areNotAccessible()) {
 
+			if (this.areNotAccessible()) {
 				this.removeAndAddClass(selectors.classes.failed);
 			} else {
-
 				var classes = [selectors.result.aaSmall, selectors.result.aaLarge, selectors.result.aaaSmall, selectors.result.aaaLarge ];
 
 				for (i in classes) {
@@ -136,7 +136,6 @@ var colorContrast = (function() {
 				}
 
 				this.removeAndAddClass(selectors.classes.success);
-					
 			}
 
 			if (values.AAsmall ? jQuery(selectors.result.aaSmall).addClass(selectors.classes.success) : jQuery(selectors.result.aaSmall).addClass(selectors.classes.failed));
