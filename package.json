@@ -1,0 +1,23 @@
+{
+  "name": "photoshop-contrast-checker",
+  "version": "1.0.0",
+  "description": "Our vision is to make designers aware as early as possible in their design process on how to design for color vision deficiency (or colour blindness) and provide the right tools for it.",
+  "main": "index.js",
+  "dependencies": {
+    "tinycolor2": "1.3.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ustwo/photoshop-contrast-checker.git"
+  },
+  "author": "real@ustwo.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ustwo/photoshop-contrast-checker/issues"
+  },
+  "homepage": "https://github.com/ustwo/photoshop-contrast-checker#readme"
+}
