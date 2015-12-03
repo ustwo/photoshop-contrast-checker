@@ -34,17 +34,17 @@
 					<Menu>Color contrast</Menu>
 					<Geometry>
 						<Size>
-							<Height>300</Height>
-							<Width>378</Width>
+							<Height>550</Height>
+							<Width>240</Width>
 						</Size>
 						<MinSize>
 							<Height>550</Height>
-							<Width>378</Width>
+							<Width>240</Width>
 						</MinSize>
 						<MaxSize>
 							<Height>550</Height>
-							<Width>378</Width>
-						</MaxSize>p
+							<Width>240</Width>
+						</MaxSize>
 					</Geometry>
 					<Icons>
 						<Icon Type="Normal">./icons/iconNormal.png</Icon>

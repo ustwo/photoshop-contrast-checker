@@ -17,17 +17,15 @@
 }
 
 * {
+    box-sizing: border-box;
     padding: 0;
     margin: 0;
-    font-family: 'Montserrat', Helvetica;
-    font-weight: 400;
 }
 
 .debug {
     padding: 10px;
     background: white;
     text-align: center;
-    margin-bottom: 20px;
 }
 
 .debug button {
@@ -44,10 +42,14 @@
 
 body {
     background: #535353;
+    color: white;
+    font-size: 13px;
+    text-align: center;
+    font-family: 'Montserrat', Helvetica;
+    font-weight: 400;
 }
 
 header {
-    text-align: center;
     padding-bottom: 11px;
     padding-top: 11px;
 }
@@ -83,20 +85,21 @@ header {
 
 #accessibility-levels {
     width: 100%;
-    float: left;
+    display: flex;
+    flex-wrap: wrap;
     list-style-type: none;
 }
 
 #accessibility-levels li {
     width: 25%;
-    float: left;
+    text-align: center;
+    padding: 5px;
 }
 
 #accessibility-levels li .result {
     width: 40px;
     height: 40px;
-    margin: 0 auto;
-    float: left;
+    margin: 0 auto 5px;
     background: black;
 }
 
@@ -108,11 +111,8 @@ header {
     background: red;
 }
 
-#accessibility-levels li p,
-#accessibility-levels li div {
-    width: 100%;
-    float: left;
-    text-align: center;
+#accessibility-levels span {
+    color: white;
 }
 
 #a-value {
@@ -132,13 +132,6 @@ header {
     color: #e5e5e5;
     font-size: 12px;
     margin: 11px 8px;
-}
-
-p {
-    color: white;
-    font-size: 16px;
-    text-align: center;
-    margin-bottom: 5px;
 }
 
 h1 {
@@ -162,10 +155,6 @@ h1, h2, h3, h4, h5, h6 {
 
 .right {
     float: right;
-}
-
-.clearfix {
-    clear: both;
 }
 
 .triangle {
@@ -204,8 +193,6 @@ footer {
     width: 20px;
     top: -8px;
     margin-left: -11px;
-    -webkit-box-shadow: 0 1px 3px 0px #000;
-    -moz-box-shadow:    0 1px 3px 0px #000;
     box-shadow:         0 1px 3px 0px #000;
     border: none;
 }
