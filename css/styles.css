@@ -196,13 +196,13 @@ footer {
 #slider .ui-slider-handle.success {
     border-top: none;
     border-bottom: 1px solid #5b761f;
-    background-color: #86B829;
+    background: #86B829;
 }
 
 #slider .ui-slider-handle.failed {
     border-bottom:none;
     border-top: 1px solid #EA7586;
-    background-color: #ED445D; }
+    background: #ED445D; }
 }
 
 #slider .ui-slider-pip {
