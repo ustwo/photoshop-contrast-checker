@@ -46,49 +46,82 @@ var colorContrast = (function() {
 		init: function() {
 			var that = this;
 
-			this.getColors();
-			this.checkColors();
-			this.updateColors();
+			var csInterface = new CSInterface();
+			var apiMajorVersion = csInterface.getCurrentApiVersion().major;
+			console.log("API version:", apiMajorVersion);
+			var extensionId =  csInterface.getExtensionID();
+			console.log("Extension ID:", extensionId);
 
-			jQuery("#fg-selector").spectrum({
-				color: colors.fg
+			function getForegroundColor() {
+				csInterface.evalScript("getForegroundColor()", function (color) {
+					console.log("Got app foreground color", color);
+					colors.fg = tinycolor("#" + color);
+				});
+			}
+
+			function getBackgroundColor() {
+				csInterface.evalScript("getBackgroundColor()", function (color) {
+					console.log("Got app background color", color);
+					colors.bg = tinycolor("#" + color);
+					that.setColors();
+					that.checkColors();
+					that.updateColors();
+				});
+			}
+
+			function PSCallback(csEvent) {
+				getForegroundColor();
+				getBackgroundColor();
+			}
+
+			// TODO: figure out why the new way doesn't want to work
+			//if (apiMajorVersion === 5) {
+				csInterface.addEventListener("PhotoshopCallback", PSCallback);
+			// } else {
+			// 	csInterface.addEventListener("com.adobe.PhotoshopJSONCallback" + extensionId, PSCallback);
+			// }
+
+			var event = new CSEvent("com.adobe.PhotoshopRegisterEvent", "APPLICATION");
+			event.extensionId = extensionId;
+			csInterface.dispatchEvent(event);
+
+			jQuery(selectors.fg).spectrum({
+				preferredFormat: "hex",
+				showInput: true,
+				showInitial: true,
 			});
 
-			jQuery("#fg-selector").on("move.spectrum", function(e, color) {
-				colors.fg = tinycolor(jQuery(selectors.labels.fg).html());
-
-				jQuery(selectors.fg).css({ backgroundColor: color.toHexString() });
-				jQuery(selectors.labels.fg).html(color.toHexString());
-
-				that.checkColors();
+			jQuery(selectors.fg).on("change.spectrum", function(e, color) {
+				console.log("New foreground color picked", color.toHex());
+				csInterface.evalScript("setForegroundColor('" + color.toHex() + "')");
 			});
 
-			jQuery("#bg-selector").spectrum({
-				color: colors.bg
+			jQuery(selectors.bg).spectrum({
+				preferredFormat: "hex",
+				showInput: true,
+				showInitial: true
 			});
 
-			jQuery("#bg-selector").on("move.spectrum", function( e, color) {
-				colors.bg = tinycolor(jQuery(selectors.labels.bg).html());
-
-				jQuery(selectors.bg).css({ backgroundColor: color.toHexString() });
-				jQuery(selectors.labels.bg).html(color.toHexString());
-
-				that.checkColors();
+			jQuery(selectors.bg).on("change.spectrum", function( e, color) {
+				console.log("New background color picked", color.toHex());
+				csInterface.evalScript("setBackgroundColor('" + color.toHex() + "')");
 			});
+
+			getForegroundColor();
+			getBackgroundColor();
 		},
 
-		getColors: function() {
-			colors.fg = tinycolor(jQuery(selectors.labels.fg).html());
-			colors.bg = tinycolor(jQuery(selectors.labels.bg).html());
+		setColors: function() {
+			jQuery(selectors.fg).spectrum("set", colors.fg);
+			jQuery(selectors.bg).spectrum("set", colors.bg);
 		},
 
 		updateColors: function() {
-
 			jQuery(selectors.fg).css({ backgroundColor: colors.fg.toHexString() });
-			jQuery(selectors.labels.fg).html(colors.fg.toHexString());
+			jQuery(selectors.labels.fg).html(colors.fg.toHexString().toUpperCase());
 
 			jQuery(selectors.bg).css({ backgroundColor: colors.bg.toHexString() });
-			jQuery(selectors.labels.bg).html(colors.bg.toHexString());
+			jQuery(selectors.labels.bg).html(colors.bg.toHexString().toUpperCase());
 		},
 
 		areColorsValid: function() {
@@ -101,10 +134,9 @@ var colorContrast = (function() {
 				values.AAlarge = tinycolor.isReadable(colors.fg, colors.bg, {level: "AA", size:"large"});
 				values.AAAsmall = tinycolor.isReadable(colors.fg, colors.bg, {level: "AAA", size:"small"});
 				values.AAAlarge = tinycolor.isReadable(colors.fg, colors.bg, {level: "AAA", size:"large"});
-				console.log(values);
+				values.readability = tinycolor.readability(colors.fg, colors.bg);
+				console.log("Color check results", values);
 			}
-
-			values.readability = tinycolor.readability(colors.fg, colors.bg);
 
 			this.updateValues(values.readability);
 		},
