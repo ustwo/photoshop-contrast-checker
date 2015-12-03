@@ -1,7 +1,7 @@
 {
   "name": "photoshop-contrast-checker",
   "version": "1.0.0",
-  "description": "Our vision is to make designers aware as early as possible in their design process on how to design for color vision deficiency (or colour blindness) and provide the right tools for it.",
+  "description": "Our vision is to make designers aware as early as possible in their design process on how to design for color vision deficiency (or color blindness) and provide the right tools for it.",
   "main": "index.js",
   "dependencies": {
     "tinycolor2": "1.3.0"

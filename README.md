@@ -1,6 +1,6 @@
 # Photoshop Contrast Checker
 
-Our vision is to make designers aware as early as possible in their design process on how to design for colour vision deficiency (or colour blindness) and provide the right tools for it.
+Our vision is to make designers aware as early as possible in their design process on how to design for color vision deficiency (or color blindness) and provide the right tools for it.
 
 ### Usage
 
@@ -32,6 +32,12 @@ Now that the system is ready to load the unsigned extension, the last thing you 
 
 * On Mac, copy the extension into `~/Library/Application Support/Adobe/CEP/extensions/` (or `/Library/Application Support/Adobe/CEP/extensions`)
 * On Windows, copy the extension into `C:\<username>\AppData\Roaming\Adobe\CEP\extensions\` (or `C:\Program Files\Common Files\Adobe\CEP\extensions\`)
+
+### Run and debug
+
+You should be able to open the extension via `Window > Extensions` now.
+
+To debug the running web app, open http://localhost:8088/ in Chrome.
 
 ## Libraries & Submodules
 
