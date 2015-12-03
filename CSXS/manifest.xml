@@ -6,9 +6,8 @@
 	</ExtensionList>
 	<ExecutionEnvironment>
 		<HostList>
-            <Host Name="PHXS" Version="[13.0,16.9]" />
-            <Host Name="PHSP" Version="[13.0,16.9]" />
-
+			<Host Name="PHXS" Version="[13.0,16.9]" />
+			<Host Name="PHSP" Version="[13.0,16.9]" />
 		</HostList>
 		<LocaleList>
 			<Locale Code="All" />
@@ -21,8 +20,11 @@
 		<Extension Id="ustwo.colorcontrastchecker">
 			<DispatchInfo >
 				<Resources>
-				<MainPath>./index.html</MainPath>
-				<ScriptPath>./jsx/hostscript.jsx</ScriptPath>
+					<MainPath>./index.html</MainPath>
+					<ScriptPath>./jsx/hostscript.jsx</ScriptPath>
+					<CEFCommandLine>
+						<Parameter>--enable-nodejs</Parameter>
+					</CEFCommandLine>
 				</Resources>
 				<Lifecycle>
 					<AutoVisible>true</AutoVisible>
@@ -35,15 +37,15 @@
 							<Height>300</Height>
 							<Width>378</Width>
 						</Size>
-                    	<MinSize>
-                            <Height>550</Height>
-                            <Width>378</Width>
-                        </MinSize>
-                        <MaxSize>
-                            <Height>550</Height>
-                            <Width>378</Width>
-                        </MaxSize>p
-                        
+						<MinSize>
+							<Height>550</Height>
+							<Width>378</Width>
+						</MinSize>
+						<MaxSize>
+							<Height>550</Height>
+							<Width>378</Width>
+						</MaxSize>p
+						
 					</Geometry>
 					<Icons>
 						<Icon Type="Normal">./icons/iconNormal.png</Icon>
@@ -51,7 +53,7 @@
 						<Icon Type="Disabled">./icons/iconDisabled.png</Icon>
 						<Icon Type="DarkNormal">./icons/iconDarkNormal.png</Icon>
 						<Icon Type="DarkRollOver">./icons/iconDarkRollover.png</Icon>
-					</Icons>					
+					</Icons>
 				</UI>
 			</DispatchInfo>
 		</Extension>
