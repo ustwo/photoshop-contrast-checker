@@ -8,8 +8,8 @@ TBD
 
 ## Dependencies
 
-* [Node](https://nodejs.org/en/)
 * [Adobe Photoshop CC 2014 or later](http://www.adobe.com/uk/products/photoshop.html)
+* [Node](https://nodejs.org/en/) (but only if you need to install more packages, otherwise bundled with Photoshop)
 
 ## Development
 
@@ -38,6 +38,11 @@ Now that the system is ready to load the unsigned extension, the last thing you 
 You should be able to open the extension via `Window > Extensions` now.
 
 To debug the running web app, open http://localhost:8088/ in Chrome.
+
+### Read documentation
+
+https://github.com/Adobe-CEP/CEP-Resources
+http://wwwimages.adobe.com/content/dam/Adobe/en/devnet/photoshop/pdfs/photoshop_scriptref_js.pdf
 
 ## Libraries & Submodules
 

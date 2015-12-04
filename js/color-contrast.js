@@ -75,6 +75,7 @@ var colorContrast = (function() {
 			}
 
 			// TODO: figure out why the new way doesn't want to work
+			// See: http://www.davidebarranca.com/2015/09/html-panel-tips-18-photoshop-json-callback/
 			//if (apiMajorVersion === 5) {
 				csInterface.addEventListener("PhotoshopCallback", PSCallback);
 			// } else {
