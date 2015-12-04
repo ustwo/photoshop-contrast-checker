@@ -49,24 +49,13 @@ body {
     font-weight: 400;
 }
 
-header {
-    padding-bottom: 11px;
-    padding-top: 11px;
-}
-
-#logo {
-    background: url(../img/u-s-t-w-o-logo.png) no-repeat 50% 50%;
-    height: 20px;
-    text-indent: -999em;
-}
-
 #measurement {
     background: #383838;
 }
 
 #main-content,
 #suggestions {
-    margin: 0 8px 20px 8px;
+    margin: 0 8px;
 }
 
 #main-content ul {
@@ -169,10 +158,32 @@ h1, h2, h3, h4, h5, h6 {
     border-bottom: 10px solid #565656;
 }
 
+.color-variants {
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
+    list-style-type: none;
+}
+
 footer {
-    text-align: center;
-    margin: 8px;
+    display: flex;
+    padding-top: 5px;
+    width: 100%;
     color: #a7a9ac;
+    font-size: 11px;
+}
+
+footer > p {
+    margin-right: 7px;
+}
+
+#logo {
+    background: url(../img/u-s-t-w-o-logo.png) no-repeat 50% 50%;
+    background-size: contain;
+    margin: 2px 5px;
+    height: 10px;
+    width: 36px;
+    text-indent: -999em;
 }
 
 #slider {

@@ -108,6 +108,14 @@ var colorContrast = (function() {
 				csInterface.evalScript("setBackgroundColor('" + color.toHex() + "')");
 			});
 
+			jQuery("#foreground-color-variants").on("click", "li", function(e) {
+				csInterface.evalScript("setForegroundColor('" + jQuery(this).data('color') + "')");
+			});
+
+			jQuery("#background-color-variants").on("click", "li", function(e) {
+				csInterface.evalScript("setBackgroundColor('" + jQuery(this).data('color') + "')");
+			});
+
 			getForegroundColor();
 			getBackgroundColor();
 		},
@@ -137,9 +145,73 @@ var colorContrast = (function() {
 				values.AAAlarge = tinycolor.isReadable(colors.fg, colors.bg, {level: "AAA", size:"large"});
 				values.readability = tinycolor.readability(colors.fg, colors.bg);
 				console.log("Color check results", values);
+				this.generateVariations();
 			}
 
 			this.updateValues(values.readability);
+		},
+
+		generateVariations: function() {
+			// these variables decide how the rendered variation grid will look
+			var columns = 4;
+			var rows = 4;
+			var totalHeight = 100;
+			var $foregroundVariantsParentElement = jQuery("#foreground-color-variants").empty();
+			var $backgroundVariantsParentElement = jQuery("#background-color-variants").empty();
+
+			// convert to HSV space as changing saturation and value is the best bet getting higher contrast
+			var foregroundHSV = colors.fg.toHsv();
+			var backgroundHSV = colors.bg.toHsv();
+
+			// push away from color to the furthest corner in the color space to get the maximum difference (= maximum contrast)
+			var foregroundValueDirection = (0.5 - backgroundHSV.v) * 1 / Math.abs(0.5 - backgroundHSV.v);
+			var foregroundSaturationDirection = (0.5 - backgroundHSV.s) * 1 / Math.abs(0.5 - backgroundHSV.s);
+			var backgroundValueDirection = (0.5 - foregroundHSV.v) * 1 / Math.abs(0.5 - foregroundHSV.v);
+			var backgroundSaturationDirection = (0.5 - foregroundHSV.s) * 1 / Math.abs(0.5 - foregroundHSV.s);
+
+			// find the difference between current the max / min values depending on which direction we need to go
+			var foregroundValueSpace = foregroundValueDirection === 1 ? 1 - foregroundHSV.v : foregroundHSV.v;
+			var foregroundSaturationSpace = foregroundSaturationDirection === 1 ? 1 - foregroundHSV.s : foregroundHSV.s;
+			var backgroundValueSpace = backgroundValueDirection === 1 ? 1 - backgroundHSV.v : backgroundHSV.v;
+			var backgroundSaturationSpace = backgroundSaturationDirection === 1 ? 1 - backgroundHSV.s : backgroundHSV.s;
+
+			for (var i = 0; i < rows; i++) {
+				for (var j = 0; j < columns; j++) {
+					// tweaked ratios, excluding extremes like 0 and 1
+					var rowProgressRatio = (i + 1) / (rows + 1);
+					var columnProgressRatio = (j + 1) / (columns + 1);
+
+					// ready to calculate color values and render cells for foreground colors
+					var newForegroundColor = tinycolor
+						.fromRatio({
+							h: foregroundHSV.h,
+							s: foregroundHSV.s + foregroundSaturationSpace * rowProgressRatio * foregroundSaturationDirection,
+							v: foregroundHSV.v + foregroundValueSpace * columnProgressRatio * foregroundValueDirection });
+					var $foregroundColorElement = jQuery("<li></li>")
+						.css({
+							backgroundColor: '#'+newForegroundColor.toHex(),
+							width: 100 / columns + '%',
+							height: totalHeight / rows + 'px'
+						})
+						.data('color', newForegroundColor.toHex());
+					$foregroundVariantsParentElement.append($foregroundColorElement);
+
+					// ready to calculate color values and render cells for background colors
+					var newBackgroundColor = tinycolor
+						.fromRatio({
+							h: backgroundHSV.h,
+							s: backgroundHSV.s + backgroundSaturationSpace * rowProgressRatio * backgroundSaturationDirection,
+							v: backgroundHSV.v + backgroundValueSpace * columnProgressRatio * backgroundValueDirection });
+					var $backgroundColorElement = jQuery("<li></li>")
+						.css({
+							backgroundColor: '#'+newBackgroundColor.toHex(),
+							width: 100 / columns + '%',
+							height: totalHeight / rows + 'px'
+						})
+						.data('color', newBackgroundColor.toHex());
+					$backgroundVariantsParentElement.append($backgroundColorElement);
+				}
+			}
 		},
 
 		areNotAccessible: function() {
